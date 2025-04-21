@@ -284,4 +284,7 @@ for(let item in person){
 //     console.log("Value of i is: ",i);  // 0,2,4,6,8,10,......18
 // }
 
-const nums = [10,3,10,12,90,11,2,8,0]
+/*
+    const nums = [10,3,10,12,90,11,2,8,0]
+    find the greater among all the numbers:
+*/
