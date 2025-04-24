@@ -240,3 +240,38 @@ const nums = [1,2,3,1,2,3,1,1,2,4];
     3 =>  2
     4 =>  1 
 */
+
+
+/*
+==> Object:
+*/
+
+// Creation of the object
+const person = {name:"Amit",age:27,email:"amit@gamil.com"}
+// const newPerson = new Object();
+// newPerson.name = "Ravi";
+
+// Access the object entity:
+// console.log("Name is: ",person.name);
+// console.log("Name is: ",person['name']);
+
+
+// Modification: 
+// person.name = "Sumit";
+// person['name'] = "Sumit";
+
+
+// get keys of the object:
+const keys = Object.keys(person);
+console.log("Keys are : ",keys); 
+
+// get values of the object:
+const values = Object.values(person);
+console.log("Values are: ",values); // 
+
+// get keys and values all together:
+const entities = Object.entries(person);
+console.log("Entries: ",entities); //
+
+//
+arr = [1,1,1,2,2,2,2,4,1,4,0,8,1,1,5]
