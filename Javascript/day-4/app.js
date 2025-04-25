@@ -1,5 +1,5 @@
 /*
-==> Scope, Hoisting & Closures + Asynchronous JavaScript
+==> Closures + Asynchronous JavaScript
     Closures
     setTimeout, setInterval
     Promises
@@ -16,19 +16,47 @@
     ->  Enable data privacy.
 */
 
+// const num = 10;
+// // Closure basic syntax:
+// function outerFunction() {
+//     let outerVar = "I am outside!";
 
-// Closure basic syntax:
-function outerFunction() {
-    let outerVar = "I am outside!";
-
-    function innerFunction() {
-      console.log(outerVar);  // Accessing outerVar
-    }    
-    return innerFunction;
-}
+//     function innerFunction() {
+//         let test = "Test"
+//         console.log(outerVar,num);  // Accessing outerVar
+//     }
+//     return innerFunction;
+// }
   
-const myFunc = outerFunction();  // outerFunction is called
-myFunc(); // Logs: "I am outside!"
+// const myFunc = outerFunction();  // outerFunction is called
+// myFunc(); // Logs: "I am outside!"
+
+ // num =10 => 
+// function calculate(){
+//     let obj = {};
+
+//     function sum(num){
+//         if(obj[num]){
+//             return obj[num];
+//         }
+//         let s = 0;
+//         for(let i=1;i<=num;i++){
+//             s +=i;
+//         }
+//         obj[num] = s;
+//         return s;
+//     }
+
+//     return sum;
+// }
+
+// const num = 10;
+// const s = calculate()
+// console.log("Calculate: ",s(10));
+// console.log("Calculate: ",s(20));
+// console.log("Calculate: ",s(10));
+
+
 
 
 /*
@@ -36,6 +64,24 @@ myFunc(); // Logs: "I am outside!"
     -> setTimeout executes a function once after a specified delay.
     -> setInterval executes a function repeatedly with a fixed delay between each call.
 */
+
+// const timer = setTimeout(()=>{
+//     console.log("Hello World")
+// }, 10 * 1000)
+
+// setTimeout(()=>{
+//     clearTimeout(timer);
+// },2*1000)
+
+// const timer = setInterval(()=>{
+//     console.log("In setInterval: ");
+// },2 * 1000);
+
+
+// setTimeout(()=>{
+//     clearInterval(timer);
+// }, 10 * 1000)
+
 
 /*
 ==> Promises:
@@ -54,32 +100,85 @@ myFunc(); // Logs: "I am outside!"
     -> to perform asynchronous work
 */
 
+
+
+
 // Creation of promise:
 // const promise = new Promise((resolve,reject)=>{
-//     const success = true;
+//     const success = false;
 //     if(success){
-//         return resolve("Promise resolved")
+//         setTimeout(()=>{
+//             resolve("Promise resolved")
+//         },4 * 1000)
+//          // promise will fulfilled
 //     }else{
-//         reject("Promise rejected");
+//         setTimeout(()=>{
+//             reject(10+881); // rejected
+//         },4 * 1000);
 //     }
 // })
 
-// promise.then(res=>{
-//     console.log("Res is: ",res);
+// console.log("Promise initial state: ",promise);
+// promise
+// .then((res)=>{
+//     console.log("promise is resolved: ",res);
+// })
+// .catch(err=>{
+//     console.log("Promise is rejected",err);
+// })
+// .finally(()=>{
+//     console.log("Finally can run")
+// })
+
+// Promise chaining:
+// const promise2 = new Promise((res,rej)=>{
+//     const success = true;
+//     if(success){
+//         res(10);
+//     }else{
+//         rej(false);
+//     }
 // });
 
-// Chaining Promises
+// promise2
+// .then(res=>{
+//     return res + 20;
+// })
+// .then(res=>{
+//     const s = res + 30;
+//     return s;
+// })
+// .then(sum=>{
+//     console.log("Sum is: ", sum);
+// })
 
 
 /*
 ==> async/await:
     ->  async/await is syntactic sugar over Promises that makes asynchronous code look and behave more 
         like synchronous code—improving readability and error handling.
-    -> An async function always returns a Promise.
-    -> 'await' pauses the execution of the async function until the Promise is resolved or rejected.
+    ->  An async function always returns a Promise.
+    ->  'await' pauses the execution of the async function until the Promise is resolved or rejected.
 
 ==> Points to Remember:
     ->  await can only be used inside async functions
     ->  Helps avoid .then() chains
     ->  Makes asynchronous code easier to read and debug
 */
+
+
+async function sum(a,b){
+    return new Promise((res,rej)=>{
+        setTimeout(()=>{
+            res(a+b);
+        },5000)
+    })
+}
+
+async function test(){
+    const s = await sum(10,20);
+    console.log("Test function is called");
+    console.log("Sum is: ", s); // 
+}
+
+test();

@@ -24,7 +24,7 @@
 
 
 // Object destructuring:
-const person = {name:"Amit", age:25, email:'amit@gmail.com', city:"Delhi"}
+// const person = {name:"Amit", age:25, email:'amit@gmail.com', city:"Delhi"}
 // const {name, age}  = person;
 // console.log("Name and age: ",name,age);
 
@@ -186,6 +186,8 @@ Spread & Rest operators:
 //     console.log(j);
 // }catch(err){
 //     console.log("Error while parsing invalid json: ",err);
+// }finally{
+//     console.log("Finally block is running")
 // }
 
 /*
@@ -193,24 +195,26 @@ Spread & Rest operators:
     -> Used to create blueprints for objects and enable code reuse via inheritance.
 */ 
 
-// class Person{
-//     constructor(name,age,phone_no){
-//         this.name = name;
-//         this.age = age;
-//         this.phone_no = phone_no;
-//     }
+class Person{
+    constructor(name,age,phone_no){
+        this.name = name;
+        this.age = age;
+        this.phone_no = phone_no;
+    }
 
-//     getName(){
-//         console.log("Person name is: ",this.name);
-//     }
-// }
+    // Methods
+    getName(){
+        console.log("Person name is: ",this.name);
+    }
+
+}
 
 // const person = new Person("Amit", 25, 1234567890);
 // person.getName();
+// console.log("Name is: ", person.name);
 
 
 //Inheritance with extends:
-
 // class Developer extends Person{
 //     constructor(name,age,phone_no,profile){
 //         super(name,age,phone_no); // to use Person class
@@ -220,7 +224,12 @@ Spread & Rest operators:
 //     getDetails(){
 //         console.log(this) 
 //     }
+
+//     getDeveloperAge(){
+//         console.log("Details are: ",this.getDetails());
+//     }
 // }
 
 // const developer = new Developer("Amit", 25, 1234567890,"MERN");
-// developer.getDetails();
+// // developer.getDetails();
+// developer.getDeveloperAge()
