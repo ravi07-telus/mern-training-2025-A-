@@ -20,3 +20,11 @@
             ->> How React works
     5) Create Home, About and Dashboard pages to demonstrate React Routers concepts
 */
+
+/*
+==> Command need to create and start react project:
+    -> node must be installed in you system
+    -> npx create-react-app@latest app-name => Create your react app
+    -> cd app-name 
+    -> npm start => start your react app:
+*/
