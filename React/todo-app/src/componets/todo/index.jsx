@@ -3,6 +3,7 @@
 //  React Hook
 import { useState, useEffect } from "react"; // 
 import TaskList from "./TaskList";
+import { v4 as uuidv4 } from 'uuid';
 
 const Todo = () => {
 
@@ -28,7 +29,8 @@ const Todo = () => {
 
     const addTaskHandler = ()=>{
       if(title && description){
-        const task = {title, description};
+        const id = uuidv4();
+        const task = {title, description,id};
         let tasks = getTasks();
         if(!tasks){
           tasks = [task];
@@ -38,9 +40,9 @@ const Todo = () => {
         }
         setTasks(tasks);
         localStorage.setItem('tasks',JSON.stringify(tasks));
-        alert("Task is added")
         setTitle('')
         setDescription('')
+        alert("Task is added")
       }
     }
 
@@ -50,7 +52,7 @@ const Todo = () => {
   }
 
   return (
-    <div className="todo-container">
+    <div className="todo-container" >
       <input
         name="title"
         type="text"
@@ -70,7 +72,7 @@ const Todo = () => {
       <button type="submit" className="todo-button" onClick={addTaskHandler}>
         Add Task
       </button>
-      <TaskList tasks ={tasks} name={"todo"}/>
+      <TaskList tasks ={tasks} getTasks = {getTasks} setTasks={setTasks}/>
     </div>
   );
 };

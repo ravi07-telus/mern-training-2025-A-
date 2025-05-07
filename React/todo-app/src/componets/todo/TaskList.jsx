@@ -1,22 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function TaskList({tasks,name}) {
+export default function TaskList({tasks, getTasks,setTasks}) {
+
+  const [taskId, setTaskId] = useState(null);
+  const [taskDetails, setTaskDetails] = useState(null);
+
+  const handleDeleteTask = (id)=>{
+    let tasks = JSON.parse(getTasks());
+    tasks = tasks.filter((task)=>{
+      if(task.id !== id){
+        return task;
+      }
+    })
+    // Update the localStorage
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    
+    // Update the tasks state variable to see updated tasks on applications:
+    setTasks(tasks);
+  }
+
+
+  const handleEditTask = (task)=>{
+    setTaskId(task.id);
+    setTaskDetails(task);
+  }
+
+  const cancelEditTask = ()=>{
+    setTaskId(null);
+  }
+
+  const handleInputChange = (name,value)=>{
+    setTaskDetails({...taskDetails,[name]:value})
+  }
+
+  const handleEditSaveTask = ()=>{
+    let tasks = JSON.parse(getTasks());
+    let taskIndex = tasks.findIndex(item=> item.id === taskDetails.id);
+    tasks[taskIndex] = taskDetails;
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    setTaskId(null);
+    setTaskDetails(null);
+    setTasks(tasks);
+  }
 
   return (
     <div className="task-container">
       <h2 className="heading">Task List</h2>
       <div className="task-list">
         {tasks && tasks.length > 0 && tasks.map((item,index)=>{
-            return (<div  className="task-card">
-                <div className="task-id"> {item.id || index +1} </div>
+            return (
+            <div  className="task-card" key={item.id}>
+                <div className="task-id"> {index +1} </div>
                 <div className="task-details">
-                  <div className="task-title"> {item.title}</div>
-                  <div className="task-description"> {item.description}</div>
+                  {taskId === item.id ?       
+                      <input
+                        name="title"
+                        type="text"
+                        value={taskDetails.title}
+                        placeholder="Enter Title"
+                        className="todo-input"
+                        onChange={(e)=> handleInputChange('title',e.target.value)}
+                        />
+                    :
+                      <div className="task-title">  {item.title}</div>
+                    }
+                    {taskId === item.id ?       
+                      <input
+                        name="description"
+                        type="text"
+                        value={taskDetails.description}
+                        placeholder="Enter Description"
+                        className="todo-input"
+                        onChange={(e)=> handleInputChange('description',e.target.value)}
+                        />
+                    :
+                      <div className="task-description"> {item.description}</div>
+                    }
                 </div>
-                <div className="task-actions">
-                  <button className="btn edit-btn" >Edit</button>
-                  <button className="btn delete-btn" >Delete</button>
-              </div>
+                {!taskId && 
+                  <div className="task-actions">
+                    <button className="btn edit-btn" onClick={()=> handleEditTask(item)}>Edit</button>
+                    <button className="btn delete-btn"  onClick={()=> handleDeleteTask(item.id)}>Delete</button>
+                  </div>
+                }
+                {
+                  taskId == item.id &&  
+                  <div className="task-actions">
+                    <button className="btn edit-btn" onClick={handleEditSaveTask}>Save</button>
+                    <button className="btn delete-btn" onClick={cancelEditTask}>Cancel</button>
+                  </div>
+                }
             </div>)
         })}
       </div>
