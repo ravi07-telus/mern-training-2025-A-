@@ -43,6 +43,18 @@ export default function TaskList({tasks, getTasks,setTasks}) {
     setTasks(tasks);
   }
 
+  const markTaskCompleted = (id)=>{
+    let newTasks = tasks.map(item=>{
+        if(item.id == id){
+          item.isCompleted = true;
+        }
+        return item;
+    });
+    localStorage.setItem('tasks',JSON.stringify(newTasks));
+    newTasks = newTasks.filter(item=> !item.isCompleted);
+    setTasks(newTasks);
+  }
+
   return (
     <div className="task-container">
       <h2 className="heading">Task List</h2>
@@ -79,6 +91,7 @@ export default function TaskList({tasks, getTasks,setTasks}) {
                 </div>
                 {!taskId && 
                   <div className="task-actions">
+                    <button className="btn" style={{background:'blue'}} onClick={()=> markTaskCompleted(item.id)}>✅</button>
                     <button className="btn edit-btn" onClick={()=> handleEditTask(item)}>Edit</button>
                     <button className="btn delete-btn"  onClick={()=> handleDeleteTask(item.id)}>Delete</button>
                   </div>
@@ -90,7 +103,8 @@ export default function TaskList({tasks, getTasks,setTasks}) {
                     <button className="btn delete-btn" onClick={cancelEditTask}>Cancel</button>
                   </div>
                 }
-            </div>)
+            </div>
+            )
         })}
       </div>
     </div>

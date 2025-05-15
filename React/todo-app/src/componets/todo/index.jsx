@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"; //
 import TaskList from "./TaskList";
 import { v4 as uuidv4 } from 'uuid';
 
+
 const Todo = () => {
 
     const [title, setTitle] = useState('');
@@ -14,6 +15,7 @@ const Todo = () => {
     useEffect(()=>{
         let tasks = getTasks();
         tasks = tasks ? JSON.parse(tasks) : [];
+        tasks = tasks.filter(item=> !item.isCompleted);
         setTasks(tasks);
     }, [])
 
@@ -30,7 +32,7 @@ const Todo = () => {
     const addTaskHandler = ()=>{
       if(title && description){
         const id = uuidv4();
-        const task = {title, description,id};
+        const task = {title, description,id, isCompleted: false};
         let tasks = getTasks();
         if(!tasks){
           tasks = [task];
@@ -38,6 +40,7 @@ const Todo = () => {
           tasks = JSON.parse(tasks);
           tasks.push(task);
         }
+        tasks = tasks.filter(item=> !item.isCompleted);
         setTasks(tasks);
         localStorage.setItem('tasks',JSON.stringify(tasks));
         setTitle('')

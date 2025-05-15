@@ -135,3 +135,23 @@
 .delete-btn:hover {
   background-color: #e53935;
 }
+
+
+/* Header CSS */
+
+.nav {
+  display: flex;
+  gap: 20px;
+  padding: 16px;
+  background-color: #333;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
