@@ -51,7 +51,7 @@ export default function TaskList({tasks, getTasks,setTasks}) {
         return item;
     });
     localStorage.setItem('tasks',JSON.stringify(newTasks));
-    newTasks = newTasks.filter(item=> !item.isCompleted);
+    // newTasks = newTasks.filter(item=> !item.isCompleted);
     setTasks(newTasks);
   }
 
@@ -60,6 +60,9 @@ export default function TaskList({tasks, getTasks,setTasks}) {
       <h2 className="heading">Task List</h2>
       <div className="task-list">
         {tasks && tasks.length > 0 && tasks.map((item,index)=>{
+          if(item.isCompleted){
+            return;
+          }
             return (
             <div  className="task-card" key={item.id}>
                 <div className="task-id"> {index +1} </div>

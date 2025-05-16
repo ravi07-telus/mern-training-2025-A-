@@ -15,7 +15,7 @@ const Todo = () => {
     useEffect(()=>{
         let tasks = getTasks();
         tasks = tasks ? JSON.parse(tasks) : [];
-        tasks = tasks.filter(item=> !item.isCompleted);
+        // tasks = tasks.filter(item=> !item.isCompleted);
         setTasks(tasks);
     }, [])
 
@@ -40,7 +40,7 @@ const Todo = () => {
           tasks = JSON.parse(tasks);
           tasks.push(task);
         }
-        tasks = tasks.filter(item=> !item.isCompleted);
+        // tasks = tasks.filter(item=> !item.isCompleted);
         setTasks(tasks);
         localStorage.setItem('tasks',JSON.stringify(tasks));
         setTitle('')
